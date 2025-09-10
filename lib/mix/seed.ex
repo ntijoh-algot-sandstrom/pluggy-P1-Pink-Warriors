@@ -13,10 +13,10 @@ defmodule Mix.Tasks.Seed do
     IO.puts("Dropping tables")
     Postgrex.query!(DB, "DROP TABLE IF EXISTS fruits", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS users", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS pizza_to_ingredients", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS pizzas", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS orders", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS ingredients", [], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "DROP TABLE IF EXISTS pizza_to_ingredients", [], pool: DBConnection.ConnectionPool)
   end
 
   defp create_tables() do
@@ -38,7 +38,7 @@ defmodule Mix.Tasks.Seed do
 
     Postgrex.query!(
       DB,
-      "Create TABLE pizzas (id SERIAL, name VARCHAR(255) NOT NULL)",
+      "Create TABLE pizzas (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL)",
       [],
       pool: DBConnection.ConnectionPool
     )
@@ -48,14 +48,14 @@ defmodule Mix.Tasks.Seed do
       "Create TABLE orders (id SERIAL,
                             name VARCHAR(255) NOT NULL,
                             username TEXT,
-                            ingredients)",
+                            ingredients TEXT[])",
       [],
       pool: DBConnection.ConnectionPool
     )
 
     Postgrex.query!(
       DB,
-      "Create TABLE ingredients (id SERIAL,
+      "Create TABLE ingredients (id SERIAL PRIMARY KEY,
                                   name VARCHAR(255) NOT NULL)",
       [],
       pool: DBConnection.ConnectionPool
@@ -63,8 +63,9 @@ defmodule Mix.Tasks.Seed do
 
     Postgrex.query!(
       DB,
-      "Create TABLE pizza_to_ingredients (pizza_id INTEGER,
-                                          ingredients_id INTEGER)",
+      "Create TABLE pizza_to_ingredients (pizza_id INTEGER NOT NULL REFERENCES pizzas(id),
+                                          ingredients_id INTEGER NOT NULL REFERENCES ingredients(id),
+                                          PRIMARY KEY (pizza_id, ingredients_id))",
       [],
       pool: DBConnection.ConnectionPool
     )
@@ -74,14 +75,6 @@ defmodule Mix.Tasks.Seed do
     IO.puts("Seeding data")
 
     Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Apple", 5],
-      pool: DBConnection.ConnectionPool
-    )
-
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Pear", 4],
-      pool: DBConnection.ConnectionPool
-    )
-
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Banana", 7],
       pool: DBConnection.ConnectionPool
     )
 
