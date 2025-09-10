@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.Seed do
   use Mix.Task
 
+  alias Pluggy.TableHandler
+
   @shortdoc "Resets & seeds the DB."
   def run(_) do
     Mix.Task.run("app.start")
@@ -31,7 +33,7 @@ defmodule Mix.Tasks.Seed do
 
     Postgrex.query!(
       DB,
-      "Create TABLE users (id SERIAL, username VARCHAR(255) NOT NULL, password_hash CHAR(72) NOT NULL)",
+      "Create TABLE users (id SERIAL, role VARCHAR(255) NOT NULL, password_hash CHAR(72) NOT NULL)",
       [],
       pool: DBConnection.ConnectionPool
     )
@@ -48,7 +50,7 @@ defmodule Mix.Tasks.Seed do
       "Create TABLE orders (id SERIAL,
                             name VARCHAR(255) NOT NULL,
                             username TEXT,
-                            ingredients)",
+                            ingredients TEXT)",
       [],
       pool: DBConnection.ConnectionPool
     )
@@ -73,23 +75,14 @@ defmodule Mix.Tasks.Seed do
   defp seed_data() do
     IO.puts("Seeding data")
 
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Apple", 5],
-      pool: DBConnection.ConnectionPool
-    )
-
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Pear", 4],
-      pool: DBConnection.ConnectionPool
-    )
-
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Banana", 7],
-      pool: DBConnection.ConnectionPool
-    )
-
     Postgrex.query!(
       DB,
-      "INSERT INTO users(username, password_hash) VALUES($1, $2)",
-      ["a", Bcrypt.hash_pwd_salt("a")],
+      "INSERT INTO users(role, password_hash) VALUES($1, $2)",
+      ["admin", Bcrypt.hash_pwd_salt("a")],
       pool: DBConnection.ConnectionPool
     )
+
+    TableHandler.add_rows("pizzas", ["Margherita", "Capricciosa", "Marinara", "Quattro formaggi", "Prosciutto e funghi", "Ortolana", "Quattro stagioni", "Diavola"])
+    TableHandler.add_rows("ingredients", ["Tomatsås", "Mozzarella", "Basilika", "Skinka", "Svamp", "Kronärtskocka", "Parmesan", "Pecorino", "Gorgonzola", "Paprika", "Aubergine", "Zucchini", "Oliver", "Salami", "Chili"])
   end
 end
