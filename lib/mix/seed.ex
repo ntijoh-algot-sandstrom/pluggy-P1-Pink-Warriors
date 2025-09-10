@@ -85,5 +85,6 @@ defmodule Mix.Tasks.Seed do
 
     TableHandler.add_rows("pizzas", ["Margherita", "Capricciosa", "Marinara", "Quattro formaggi", "Prosciutto e funghi", "Ortolana", "Quattro stagioni", "Diavola"])
     TableHandler.add_rows("ingredients", ["Tomatsås", "Mozzarella", "Basilika", "Skinka", "Svamp", "Kronärtskocka", "Parmesan", "Pecorino", "Gorgonzola", "Paprika", "Aubergine", "Zucchini", "Oliver", "Salami", "Chili"])
+    TableHandler.add_to_relation([[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 4], [2, 5], [2, 6], [3, 1], [4, 1], [4, 2], [4, 7], [4, 8], [4, 9], [5, 1], [5, 2], [5, 4], [5, 5], [6, 1], [6, 2], [6, 10], [6, 11], [6, 12], [7, 1], [7, 2], [7, 4], [7, 5], [7, 6], [7, 13], [8, 1], [8, 2], [8, 14], [8, 10], [8, 15]])
   end
 end
