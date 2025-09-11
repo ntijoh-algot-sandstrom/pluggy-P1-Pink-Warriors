@@ -48,9 +48,12 @@ defmodule Mix.Tasks.Seed do
     Postgrex.query!(
       DB,
       "Create TABLE orders (id SERIAL,
-                            name VARCHAR(255) NOT NULL,
-                            username TEXT,
-                            ingredients TEXT[])",
+                            pizza_name VARCHAR(255) NOT NULL,
+                            customer TEXT,
+                            extra_ingredients TEXT[],
+                            glutenfri BOOLEAN NOT NULL DEFAULT FALSE,
+                            familjepizza BOOLEAN NOT NULL DEFAULT FALSE,
+                            status TEXT NOT NULL)",
       [],
       pool: DBConnection.ConnectionPool
     )

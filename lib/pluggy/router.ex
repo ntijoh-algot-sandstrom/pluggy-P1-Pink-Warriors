@@ -2,8 +2,10 @@ defmodule Pluggy.Router do
   use Plug.Router
   use Plug.Debugger
 
+  alias Pluggy.OrderController
   alias Pluggy.FruitController
   alias Pluggy.UserController
+  alias Pluggy.PizzaController
 
   plug(Plug.Static, at: "/", from: :pluggy)
   plug(:put_secret_key_base)
@@ -20,6 +22,11 @@ defmodule Pluggy.Router do
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
   plug(:match)
   plug(:dispatch)
+  
+  get("/orders", do: OrderController.orders(conn))
+
+  post("orders/:id/remove", do: OrderController.remove(conn, id))
+  post("orders/:id/edit", do: OrderController.update(conn, id, conn.body_params))
 
   get("/fruits", do: FruitController.index(conn))
   get("/fruits/new", do: FruitController.new(conn))
