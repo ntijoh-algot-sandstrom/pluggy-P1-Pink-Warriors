@@ -4,13 +4,14 @@ defmodule Pluggy.Router do
 
   alias Pluggy.FruitController
   alias Pluggy.UserController
+  alias Pluggy.PizzaController
 
   plug(Plug.Static, at: "/", from: :pluggy)
   plug(:put_secret_key_base)
 
   plug(Plug.Session,
     store: :cookie,
-    key: "_my_app_session",
+    key: "pizza",
     encryption_salt: "cookie store encryption salt",
     signing_salt: "cookie store signing salt",
     log: :debug
@@ -21,10 +22,16 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
+  get("/edit/:id", do: PizzaController.edit(conn, id))
+  post("/orders", do: PizzaController.create(conn, conn.body_params))
+
+
+  #______________________________________________
   get("/fruits", do: FruitController.index(conn))
   get("/fruits/new", do: FruitController.new(conn))
   get("/fruits/:id", do: FruitController.show(conn, id))
   get("/fruits/:id/edit", do: FruitController.edit(conn, id))
+
 
   post("/fruits", do: FruitController.create(conn, conn.body_params))
 
