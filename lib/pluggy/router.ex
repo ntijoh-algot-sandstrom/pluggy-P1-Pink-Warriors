@@ -2,6 +2,7 @@ defmodule Pluggy.Router do
   use Plug.Router
   use Plug.Debugger
 
+  alias Pluggy.OrderController
   alias Pluggy.FruitController
   alias Pluggy.UserController
   alias Pluggy.PizzaController
@@ -21,6 +22,11 @@ defmodule Pluggy.Router do
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
   plug(:match)
   plug(:dispatch)
+  
+  get("/orders", do: OrderController.orders(conn))
+
+  post("orders/:id/remove", do: OrderController.remove(conn, id))
+  post("orders/:id/edit", do: OrderController.update(conn, id, conn.body_params))
 
   get("/edit/:id", do: PizzaController.edit(conn, id))
   post("/orders", do: PizzaController.create(conn, conn.body_params))

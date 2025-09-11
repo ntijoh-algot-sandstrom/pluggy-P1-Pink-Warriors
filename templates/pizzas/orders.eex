@@ -1,0 +1,55 @@
+<div class="grid-container">
+    <div class="cooking">
+        <div class="row">
+            <%= for order <- orders do %>
+                <%= if order.status == "tillagas" do %>
+                    <div class="card-container">
+                        <div class="card-content">
+                            <h4><b>Namn: <%= order.customer %></b></h4>
+                            <h4><b>Pizza: <%= order.pizza_name %></b></h4>
+                            <%= if order.glutenfri do %>
+                                <p>Glutenfri</p>
+                            <% end %>
+                            <%= if order.familjepizza do %>
+                                <p>Familjepizza</p>
+                            <% end %>
+                            <p>Extra ingridienser: <%= order.extra_ingredients %></p>
+                        </div>
+                        <div class=button-container">
+                            <form action="/orders/<%= order.id %>/edit" method="post">
+                                <button type="submit" name="status" value="färdiglagad" class="button">Tillagad</button>
+                            </form>
+                        </div>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="cooked">
+        <div class="row">
+            <%= for order <- orders do %>
+                <%= if order.status == "färdiglagad" do %>
+                    <div class="card-container">
+                        <div class="card-content">
+                            <h4><b>Namn: <%= order.customer %></b></h4>
+                            <h4><b>Pizza: <%= order.pizza_name %></b></h4>
+                            <%= if order.glutenfri do %>
+                                <p>Glutenfri</p>
+                            <% end %>
+                            <%= if order.familjepizza do %>
+                                <p>Familjepizza</p>
+                            <% end %>
+                            <p>Extra ingridienser: <%= order.extra_ingredients %></p>
+                        </div>
+                        <div class=button-container">
+                            <form action="/orders/<%= order.id %>/remove" method="post">
+                                <button type="submit" class="button-2">Hämtad</button>
+                            </form>
+                        </div>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
