@@ -26,8 +26,8 @@ defmodule Pluggy.Router do
 
   get("/", do: PizzaController.index(conn))
 
-  # get("/users/login", do: UserController.create(conn))
   get("/users/login", do: UserController.index(conn))
+  post("/users/login", do: UserController.login(conn, conn.body_params))
 
   get("/orders", do: OrderController.orders(conn))
   post("orders/:id/remove", do: OrderController.remove(conn, id))

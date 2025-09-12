@@ -1,1 +1,13 @@
-<a>Jani</a>
+<section id="log_in_section">
+
+    <form id ="log_in_form" action="/users/login" method="post">
+	    <input type="text" name="username" id="username" placeholder="Username"/>
+	    <input type="password" name="password" id="password" placeholder="Password"/>
+	    <button class="log_in_button" type="submit">Log In</button>
+    </form>
+
+    <a id = "button_container_log_in" href="/">
+        <button id="back_button" class="log_in_button">Tillbaka</button>
+    </a>
+
+</section>
