@@ -10,11 +10,6 @@ defmodule Pluggy.Pizza do
     to_struct(pizza_with_ingredients)
   end
 
-  def create(params, name) do
-    ingredients = params
-    Postgrex.query!(DB, "INSERT INTO orders (name, user, ingredients, status) VALUES ($1, $2, $3, $4)", [name, nil, ingredients, "Varukorgen"])
-  end
-
   def get_ingredients(id) do
     format_ingredients(Postgrex.query!(DB, "SELECT name FROM ingredients JOIN pizza_to_ingredients ON id = ingredients_id WHERE pizza_id = #{id}").rows)
   end

@@ -8,6 +8,12 @@ defmodule Pluggy.Order do
     |> to_struct_list
   end
 
+  def create(params, name) do
+    ingredients = params["ingredients"]
+
+    Postgrex.query!(DB, "INSERT INTO orders (name, user, ingredients, status) VALUES ($1, $2, $3, $4)", [name, nil, ingredients, "Varukorgen"])
+  end
+
   def update(id, params) do
     status = params["status"]
     id = String.to_integer(id)

@@ -27,8 +27,9 @@
     </div>
 
     <section id="edit_section">
-        <form action="/" method="POST">
+        <form action="/orders" method="POST">
             <div>
+                <input type="hidden" name="pizza_id" value=<%= pizza.id %>>
                 <label for="">Ingredienser</label>
                 <%= for i <- pizza.ingredients do %>
                     <input type="checkbox" name="ingredient" value=<%=i%> checked/>
@@ -43,7 +44,7 @@
                     <label><%=i%></label>
                 <% end %>
             </div>
-            <button>Lägg i varukorgen</button>
+            <button type="submit">Lägg i varukorgen</button>
         </form>
     </section>
 </body>
