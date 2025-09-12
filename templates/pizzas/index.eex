@@ -1,0 +1,46 @@
+
+<nav id = "nav_bar">
+
+    <a class = "nav_button" href="/orders">
+        Beställningar
+    </a>
+
+    <a href="/">
+        <img src="img/tonys-pizza-basket.svg" alt="Basket">
+    </a>
+
+    <a class = "nav_button" href="/users/login">
+        Logga in
+    </a>
+
+</nav>
+
+<header id = "image_header">
+
+    <img src="img/tonys-pizza-logo.svg" alt="Tonys pizza logo">
+
+</header>
+
+<main id = "pizza_container">
+
+    <%= for {pizza, ingredienser} <- pizzas_grouped do %>
+        <div class="pizza_card">
+            <div id = "pizza_card_text_div">
+
+                <span><%=pizza%></span>
+                <ul>
+                    <%= ingredienser
+                    |> Enum.map(fn ingrediens -> "<li>#{ingrediens}</li>" end)%>
+                </ul>
+
+                <div id = "pizza_button_container">
+                <a href="/"> <button id = "adjust_button">Anpassa</button> </a>
+                <a href="/"> <button id = "buy_button">Köp</button> </a>
+                </div>
+
+            </div>
+            <img src="/img/<%= pizza |> String.downcase() |> String.replace(" ", "-") %>.svg">
+        </div>
+    <% end %>
+
+</main>

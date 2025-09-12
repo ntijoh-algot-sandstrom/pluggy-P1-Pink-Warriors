@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Welcome to Pluggy</title>
 	<link rel="stylesheet" type="text/css" href="/pluggy.css">
 </head>

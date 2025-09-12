@@ -1,11 +1,5 @@
 <h1>Fruits.index (/fruits)</h1>
 
-
-<header>
-    <img src="img/tonys-pizza-logo.svg" alt="Tonys pizza logo">
-    <input type="image" src="img/tonys-pizza-basket.svg"/>
-</header>
-
 <%= if user do %>
 	<form action="/users/logout" method="post">
 		<button type="submit">Log Out</button>
@@ -32,4 +26,5 @@
 	</li>
   <% end %>
 </ul>
+
 <a href="/fruits/new">Add new fruit</a>
