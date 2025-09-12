@@ -4,6 +4,7 @@ defmodule Pluggy.Router do
 
   alias Pluggy.OrderController
   alias Pluggy.FruitController
+  alias Pluggy.PizzaController
   alias Pluggy.UserController
   alias Pluggy.PizzaController
 
@@ -23,8 +24,10 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
-  get("/orders", do: OrderController.orders(conn))
 
+  get("/", do: PizzaController.index(conn))
+
+  get("/orders", do: OrderController.orders(conn))
   post("orders/:id/remove", do: OrderController.remove(conn, id))
   post("orders/:id/edit", do: OrderController.update(conn, id, conn.body_params))
   post("/orders", do: OrderController.create(conn, conn.body_params))

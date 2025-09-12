@@ -14,6 +14,7 @@ defmodule Pluggy.Fruit do
     |> to_struct
   end
 
+  @spec update(binary(), nil | maybe_improper_list() | map()) :: Postgrex.Result.t()
   def update(id, params) do
     name = params["name"]
     tastiness = String.to_integer(params["tastiness"])
