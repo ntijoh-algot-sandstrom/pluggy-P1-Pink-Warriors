@@ -33,7 +33,7 @@ defmodule Mix.Tasks.Seed do
 
     Postgrex.query!(
       DB,
-      "Create TABLE users (id SERIAL, role VARCHAR(255) NOT NULL, password_hash CHAR(72) NOT NULL)",
+      "Create TABLE users (id SERIAL, username VARCHAR(255) NOT NULL, password_hash CHAR(72) NOT NULL)",
       [],
       pool: DBConnection.ConnectionPool
     )
@@ -79,12 +79,12 @@ defmodule Mix.Tasks.Seed do
   defp seed_data() do
     IO.puts("Seeding data")
 
-    Postgrex.query!(
-      DB,
-      "INSERT INTO users(role, password_hash) VALUES($1, $2)",
-      ["admin", Bcrypt.hash_pwd_salt("a")],
-      pool: DBConnection.ConnectionPool
-    )
+    # Postgrex.query!(
+    #   DB,
+    #   "INSERT INTO users(role, password_hash) VALUES($1, $2)",
+    #   ["admin", Bcrypt.hash_pwd_salt("a")],
+    #   pool: DBConnection.ConnectionPool
+    # )
 
     TableHandler.add_rows("pizzas", ["Margherita", "Capricciosa", "Marinara", "Quattro formaggi", "Prosciutto e funghi", "Ortolana", "Quattro stagioni", "Diavola"])
     TableHandler.add_rows("ingredients", ["Tomatsås", "Mozzarella", "Basilika", "Skinka", "Svamp", "Kronärtskocka", "Parmesan", "Pecorino", "Gorgonzola", "Paprika", "Aubergine", "Zucchini", "Oliver", "Salami", "Chili"])

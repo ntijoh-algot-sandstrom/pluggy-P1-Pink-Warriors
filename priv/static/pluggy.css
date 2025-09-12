@@ -5,7 +5,6 @@
 
 body {
   background-color: rgb(255, 255, 255);
-	margin: 2rem;
 	font-family: Roboto;
 }
 
@@ -80,6 +79,9 @@ body {
 	margin: 2rem;
 	font-family: Roboto;
 }
+
+/*/ Edit page /*/
+
 #edit_main  {
 	display: flex;
 	background-color: rgb(255, 255, 255);
@@ -132,13 +134,6 @@ body {
 	box-shadow: 0 8px 11px 8px rgba(0, 0, 0, 0.2);
 	border-radius: 2rem;
 	padding-left: 1rem;
-}
-
-#buy_button{
-  background-color:rgb(92, 196, 92);
-  box-shadow: none;
-  border: none;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /*/ Landing / Index page /*/
@@ -264,3 +259,7 @@ a img{
 }
 
 /*/ Login Page /*/
+
+  
+
+/*/ /*/ 
