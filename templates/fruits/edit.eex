@@ -32,7 +32,7 @@
                 <input type="hidden" name="pizza_id" value=<%= pizza.id %>>
                 <label for="">Ingredienser</label>
                 <%= for i <- pizza.ingredients do %>
-                    <input type="checkbox" name="ingredient" value=<%=i%> checked/>
+                    <input type="checkbox" name="ingredient[]" value="<%=i%>" checked>
                     <label><%=i%></label>
                 <% end %>
             </div>
@@ -40,10 +40,11 @@
             <div>
                 <label for="">Extra</label>
                 <%= for i <- remaining_ingredients do %>
-                    <input type="checkbox" name="ingredient" value=<%=i%>/>
+                    <input type="checkbox" name="ingredient[]" value="<%=i%>">
                     <label><%=i%></label>
                 <% end %>
             </div>
+
             <button type="submit">Lägg i varukorgen</button>
         </form>
     </section>

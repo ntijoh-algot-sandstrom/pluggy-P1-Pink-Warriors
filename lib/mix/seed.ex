@@ -50,7 +50,7 @@ defmodule Mix.Tasks.Seed do
       "Create TABLE orders (id SERIAL,
                             pizza_name VARCHAR(255) NOT NULL,
                             customer TEXT,
-                            extra_ingredients TEXT[],
+                            extra_ingredients INTEGER[],
                             glutenfri BOOLEAN NOT NULL DEFAULT FALSE,
                             familjepizza BOOLEAN NOT NULL DEFAULT FALSE,
                             status TEXT NOT NULL)",

@@ -10,10 +10,10 @@
     send_resp(conn, 200, render("pizzas/orders", orders: Order.get_all_orders()))
   end
 
-  def create(conn, params) do # params = %{pzza_id: 2, ingredients: ["Tomatsås", "Basikila"]}
+  def create(conn, params) do # params = %{pzza_id: "2", ingredients: ["Tomatsås", "Basikila"]}
     pizza = Pizza.get(params["pizza_id"]) # [1, "margharita"]
-    IO.inspect(params)
-    Order.create(to_i(params), pizza.name)
+
+    Order.create(to_i(params["ingredient"]), pizza.name)
 
     redirect(conn, "/orders")
   end
