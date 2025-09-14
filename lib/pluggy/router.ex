@@ -23,10 +23,13 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
-  get("/pizzas", do: PizzaController.index(conn))
+
+  get("/", do: PizzaController.index(conn))
   get("/edit/:id", do: PizzaController.edit(conn, id))
   get("/orders", do: OrderController.orders(conn))
+  get("/users/login", do: UserController.index(conn))
 
+  post("/users/login", do: UserController.login(conn, conn.body_params))
   post("orders/:id/remove", do: OrderController.remove(conn, id))
   post("orders/:id/edit", do: OrderController.update(conn, id, conn.body_params))
   post("/orders", do: OrderController.create(conn, conn.body_params))
@@ -48,8 +51,8 @@ defmodule Pluggy.Router do
   # should be delete /fruits/:id, but put/patch/delete are not supported without hidden inputs
   post("/fruits/:id/destroy", do: FruitController.destroy(conn, id))
 
-  post("/users/login", do: UserController.login(conn, conn.body_params))
-  post("/users/logout", do: UserController.logout(conn))
+  # post("/users/login", do: UserController.login(conn, conn.body_params))
+  # post("/users/logout", do: UserController.logout(conn))
 
   match _ do
     send_resp(conn, 404, "oops")
