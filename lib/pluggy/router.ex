@@ -23,13 +23,14 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
+  get("/pizzas", do: PizzaController.index(conn))
+  get("/edit/:id", do: PizzaController.edit(conn, id))
   get("/orders", do: OrderController.orders(conn))
 
   post("orders/:id/remove", do: OrderController.remove(conn, id))
   post("orders/:id/edit", do: OrderController.update(conn, id, conn.body_params))
   post("/orders", do: OrderController.create(conn, conn.body_params))
 
-  get("/edit/:id", do: PizzaController.edit(conn, id))
 
 
   #______________________________________________

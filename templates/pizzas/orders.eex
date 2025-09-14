@@ -13,7 +13,11 @@
                             <%= if order.familjepizza do %>
                                 <p>Familjepizza</p>
                             <% end %>
-                            <p>Extra ingridienser: <%= order.extra_ingredients %></p>
+                            <p>Ingridienser: </br> 
+                                <%= for ingredient <- order.extra_ingredients do %>
+                                    <%= ingredient %> </br>
+                                <% end %>
+                            </p>
                         </div>
                         <div class=button-container">
                             <form action="/orders/<%= order.id %>/edit" method="post">
@@ -40,7 +44,11 @@
                             <%= if order.familjepizza do %>
                                 <p>Familjepizza</p>
                             <% end %>
-                            <p>Extra ingridienser: <%= order.extra_ingredients %></p>
+                            <p>Ingridienser: </br> 
+                                <%= for ingredient <- order.extra_ingredients do %>
+                                    <%= ingredient %> </br>
+                                <% end %>
+                            </p>
                         </div>
                         <div class=button-container">
                             <form action="/orders/<%= order.id %>/remove" method="post">

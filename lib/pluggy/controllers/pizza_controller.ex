@@ -24,7 +24,7 @@ defmodule Pluggy.PizzaController do
     pizza = Pizza.get(id) #with ingredients
     remaining = Ingredients.remaining(pizza.ingredients) #remaining ingredients
 
-    send_resp(conn, 200, render("fruits/edit", pizza: pizza, remaining_ingredients: remaining))
+    send_resp(conn, 200, render("pizzas/edit", pizza: pizza, remaining_ingredients: remaining))
   end
 
   def add_order(conn, order_id) do

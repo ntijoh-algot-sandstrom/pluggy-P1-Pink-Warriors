@@ -16,7 +16,7 @@ defmodule Pluggy.Order do
                                             familjepizza,
                                             status)
                                             VALUES ($1, $2, $3, $4, $5, $6)",
-                                            [name, nil, ingredients, false, false, "Varukorgen"])
+                                            [name, nil, ingredients, false, false, "tillagas"])
   end
 
   def update(id, params) do
