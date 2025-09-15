@@ -23,7 +23,7 @@
 
 <main id = "pizza_container">
 
-    <%= for {pizza, ingredienser} <- pizzas_grouped do %>
+    <%= for {{id, pizza}, ingredienser} <- pizzas_grouped do %>
         <div class="pizza_card">
             <div id = "pizza_card_text_div">
 
@@ -34,7 +34,7 @@
                 </ul>
 
                 <div id = "pizza_button_container">
-                <a href="/"> <button id = "adjust_button">Anpassa</button> </a>
+                <a href="/edit/<%=id%>"> <button id = "adjust_button">Anpassa</button> </a>
                 <a href="/"> <button id = "buy_button">Köp</button> </a>
                 </div>
 

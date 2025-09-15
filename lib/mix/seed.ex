@@ -33,7 +33,7 @@ defmodule Mix.Tasks.Seed do
 
     Postgrex.query!(
       DB,
-      "Create TABLE users (id SERIAL, role VARCHAR(255) NOT NULL, password_hash CHAR(72) NOT NULL)",
+      "Create TABLE users (id SERIAL, username VARCHAR(255) NOT NULL, role VARCHAR(255) NOT NULL, password_hash CHAR(72) NOT NULL)",
       [],
       pool: DBConnection.ConnectionPool
     )
@@ -77,12 +77,13 @@ defmodule Mix.Tasks.Seed do
   end
 
   defp seed_data() do
+
     IO.puts("Seeding data")
 
     Postgrex.query!(
       DB,
-      "INSERT INTO users(role, password_hash) VALUES($1, $2)",
-      ["admin", Bcrypt.hash_pwd_salt("a")],
+      "INSERT INTO users(username, role, password_hash) VALUES($1, $2, $3)",
+      ["Tony","admin", Bcrypt.hash_pwd_salt("123")],
       pool: DBConnection.ConnectionPool
     )
 
