@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="/priv/static/pluggy.css" rel="stylesheet">
+    <title>Anpassa</title>
+</head>
+<body>
+    <header>
+
+    </header>
+    <div id="edit_main">
+        <img src="/img/<%= pizza.name |> String.downcase() |> String.replace(" ", "-") %>.svg" alt="Pizza">
+        <div id="text_div">
+            <h1><%= pizza.name %></h1>
+            <div id="gluten-familj">
+                <form action="/gluten">
+                    <button>Glutenfri</button>
+                </form>
+                <form action="/familje" method="POST">
+                    <input type="hidden" name="order_id" value="<%= order.id %>" />
+                    <button>Familjepizza</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section id="edit_section">
+        <form action="/orders" method="POST">
+            <div>
+                <input type="hidden" name="pizza_id" value=<%= pizza.id %>>
+                <label for="">Ingredienser</label>
+                <%= for i <- pizza.ingredients do %>
+                    <input type="checkbox" name="ingredient" value=<%=i%> checked/>
+                    <label><%=i%></label>
+                <% end %>
+            </div>
+
+            <div>
+                <label for="">Extra</label>
+                <%= for i <- remaining_ingredients do %>
+                    <input type="checkbox" name="ingredient" value=<%=i%>/>
+                    <label><%=i%></label>
+                <% end %>
+            </div>
+            <button type="submit">Lägg i varukorgen</button>
+        </form>
+    </section>
+</body>
+</html>
