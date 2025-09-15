@@ -21,7 +21,7 @@ defmodule Pluggy.Order do
                                             familjepizza,
                                             status)
                                             VALUES ($1, $2, $3, $4, $5, $6)",
-                                            [name, sesseion(:user), ingredients, !!gluten, !!familje, "varukorgen"])
+                                            [name, nil, ingredients, !!gluten, !!familje, "varukorgen"])
   end
 
   def buy(name, ingredients) do
@@ -51,35 +51,36 @@ defmodule Pluggy.Order do
     Postgrex.query!(DB, "DELETE FROM orders WHERE id = $1", [String.to_integer(id)])
   end
 
+  def to_struct_list(rows) do
+    for [id, pizza_name, customer, extra_ingredients, glutenfri, familjepizza, status] <- rows do
+      %Order{id: id,
+      customer: customer,
+      pizza_name: pizza_name,
+      extra_ingredients: extra_ingredients,
+      glutenfri: glutenfri,
+      familjepizza: familjepizza,
+      status: status}
+    end
+  end
+
   # def to_struct_list(rows) do
   #   for [id, pizza_name, customer, extra_ingredients, glutenfri, familjepizza, status] <- rows do
-  #     %Order{id: id,
-  #     customer: customer,
-  #     pizza_name: pizza_name,
-  #     extra_ingredients: extra_ingredients,
-  #     glutenfri: glutenfri,
-  #     familjepizza: familjepizza,
-  #     status: status}
+  #     %Order{
+  #       id: id,
+  #       customer: customer,
+  #       pizza_name: pizza_name,
+  #       extra_ingredients:
+  #       case extra_ingredients do
+  #         nil -> []
+  #         "" -> []
+  #         s when is_binary(s) -> String.split(s, ",", trim: true)
+  #         list when is_list(list) -> list
+  #       end,
+  #       glutenfri: glutenfri,
+  #       familjepizza: familjepizza,
+  #       status: status
+  #     }
   #   end
   # end
 
-  def to_struct_list(rows) do
-    for [id, pizza_name, customer, extra_ingredients, glutenfri, familjepizza, status] <- rows do
-      %Order{
-        id: id,
-        customer: customer,
-        pizza_name: pizza_name,
-        extra_ingredients:
-        case extra_ingredients do
-          nil -> []
-          "" -> []
-          s when is_binary(s) -> String.split(s, ",", trim: true)
-          list when is_list(list) -> list
-        end,
-        glutenfri: glutenfri,
-        familjepizza: familjepizza,
-        status: status
-      }
-    end
-  end
 end
