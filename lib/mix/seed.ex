@@ -77,7 +77,6 @@ defmodule Mix.Tasks.Seed do
   end
 
   defp seed_data() do
-
     IO.puts("Seeding data")
 
     Postgrex.query!(

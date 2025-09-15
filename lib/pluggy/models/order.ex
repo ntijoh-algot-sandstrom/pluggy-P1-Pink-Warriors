@@ -8,7 +8,11 @@ defmodule Pluggy.Order do
     |> to_struct_list
   end
 
-  def create(ingredients, name) do
+  def create(params, name) do
+    ingredients = params["ingredient"]
+    gluten = params["glutenfri"]
+    familje = params["familjepizza"]
+
     Postgrex.query!(DB, "INSERT INTO orders (pizza_name,
                                             customer,
                                             extra_ingredients,
@@ -16,7 +20,7 @@ defmodule Pluggy.Order do
                                             familjepizza,
                                             status)
                                             VALUES ($1, $2, $3, $4, $5, $6)",
-                                            [name, nil, ingredients, false, false, "tillagas"])
+                                            [name, sesseion(:user), ingredients, !!gluten, !!familje, "varukorgen"])
   end
 
   def update(id, params) do

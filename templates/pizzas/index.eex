@@ -1,18 +1,15 @@
-
-<nav id = "nav_bar">
-
+<nav class = "nav_bar">
     <a class = "nav_button" href="/orders">
         Beställningar
     </a>
 
     <a href="/">
-        <img src="img/tonys-pizza-basket.svg" alt="Basket">
+        <img src="/img/tonys-pizza-basket.svg" alt="Basket">
     </a>
 
     <a class = "nav_button" href="/users/login">
         Logga in
     </a>
-
 </nav>
 
 <header id = "image_header">
