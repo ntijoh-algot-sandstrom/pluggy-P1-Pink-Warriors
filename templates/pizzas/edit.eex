@@ -32,9 +32,9 @@
     <section id="edit_section">
         <form action="/orders" method="POST">
             <div id="gluten-familj">
-                <input type="checkbox", name="glutenfri", value=true>
+                <input type="checkbox", name="glutenfri", value="true">
                 <label for="">Glutenfri</label>
-                <input type="checkbox", name="familjepizza", value=true>
+                <input type="checkbox", name="familjepizza", value="true">
                 <label for="">Familjepizza</label>
             </div>
 
