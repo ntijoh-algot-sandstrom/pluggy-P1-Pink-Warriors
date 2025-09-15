@@ -7,41 +7,57 @@
     <link href="/priv/static/pluggy.css" rel="stylesheet">
     <title>Anpassa</title>
 </head>
-<body>
-    <header>
+<body id="config_body">
+    <nav class = "nav_bar">
+        <a class = "nav_button" href="/orders">
+            Beställningar
+        </a>
 
-    </header>
+        <a href="/">
+            <img src="/img/tonys-pizza-basket.svg" alt="Basket">
+        </a>
+
+        <a class = "nav_button" href="/users/login">
+            Logga in
+        </a>
+    </nav>
+
     <div id="edit_main">
         <img src="/img/<%= pizza.name |> String.downcase() |> String.replace(" ", "-") %>.svg" alt="Pizza">
         <div id="text_div">
             <h1><%= pizza.name %></h1>
-            <div id="gluten-familj">
-                <form action="/gluten">
-                    <button>Glutenfri</button>
-                </form>
-                <form action="/familje">
-                    <button>Familjepizza</button>
-                </form>
-            </div>
         </div>
     </div>
 
     <section id="edit_section">
         <form action="/orders" method="POST">
-            <div>
+            <div id="gluten-familj">
+                <input type="checkbox", name="glutenfri", value=true>
+                <label for="">Glutenfri</label>
+                <input type="checkbox", name="familjepizza", value=true>
+                <label for="">Familjepizza</label>
+            </div>
+
+            <div class="inputs">
                 <input type="hidden" name="pizza_id" value=<%= pizza.id %>>
                 <label for="">Ingredienser</label>
                 <%= for i <- pizza.ingredients do %>
-                    <input type="checkbox" name="ingredient[]" value="<%=i%>" checked>
-                    <label><%=i%></label>
+                    <label class="custom-circle">
+                        <input type="checkbox" name="ingredient[]" value="<%=i%>" checked>
+                        <span class="dot"></span>
+                        <%=i%>
+                    </label>
                 <% end %>
             </div>
 
-            <div>
+            <div class="inputs">
                 <label for="">Extra</label>
                 <%= for i <- remaining_ingredients do %>
-                    <input type="checkbox" name="ingredient[]" value="<%=i%>">
-                    <label><%=i%></label>
+                    <label class="custom-circle">
+                        <input type="checkbox" name="ingredient[]" value="<%=i%>">
+                        <span class="dot"></span>
+                        <%=i%>
+                    </label>
                 <% end %>
             </div>
 
