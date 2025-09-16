@@ -38,8 +38,7 @@
     </div>
 
     <section id="edit_section">
-        <form action="/orders" method="POST">
-
+        <form action="/orders/<%= pizza.id %>" method="POST">
             <div id="gluten-familj">
 
                 <p><b>Glutenfri:</b></p>

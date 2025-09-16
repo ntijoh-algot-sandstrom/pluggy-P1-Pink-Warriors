@@ -2,7 +2,6 @@
   require IEx
 
   alias Pluggy.Order
-  alias Pluggy.Pizza
   alias Pluggy.User
   import Pluggy.Template, only: [render: 2]
   import Plug.Conn, only: [send_resp: 3]
@@ -11,19 +10,6 @@
     send_resp(conn, 200, render("pizzas/orders", orders: Order.get_all_orders(), admin: User.is_admin?(conn)))
   end
 
-  def create(conn, params) do
-    pizza = Pizza.get(params["pizza_id"])
-    Order.create(params, pizza.name)
-
-    redirect(conn, "/")
-  end
-
-  def buy(conn, params) do
-    id = params["pizza_id"]
-    pizza = Pizza.get(id)
-    Order.buy(pizza.name, pizza.ingredients)
-    redirect(conn, "/")
-  end
 
   def remove(conn, id) do
     case User.is_admin?(conn) do
@@ -42,6 +28,12 @@
 
       false -> redirect(conn, "/orders")
     end
+  end
+
+  def order(conn, id, params) do
+    Order.update_customer(id, params)
+    Order.send_order(id)
+    redirect(conn, "/")
   end
 
   # def to_i(list, acc \\ [])

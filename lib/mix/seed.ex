@@ -14,10 +14,11 @@ defmodule Mix.Tasks.Seed do
   defp drop_tables() do
     IO.puts("Dropping tables")
     Postgrex.query!(DB, "DROP TABLE IF EXISTS fruits", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS order_items", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS orders", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS users", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS pizza_to_ingredients", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS pizzas", [], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "DROP TABLE IF EXISTS orders", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS ingredients", [], pool: DBConnection.ConnectionPool)
   end
 
@@ -45,15 +46,27 @@ defmodule Mix.Tasks.Seed do
       pool: DBConnection.ConnectionPool
     )
 
+    Postgrex.query(
+      DB,
+      "Create TABLE orders (id SERIAL PRIMARY KEY,
+                            session_id UUID NOT NULL DEFAULT gen_random_uuid(),
+                            customer TEXT,
+                            inserted_at TIMESTAMP DEFAULT NOW(),
+                            updated_at TIMESTAMP DEFAULT NOW(),
+                            status TEXT NOT NULL)",
+      [],
+      pool: DBConnection.ConnectionPool
+      )
+
     Postgrex.query!(
       DB,
-      "Create TABLE orders (id SERIAL,
-                            pizza_name VARCHAR(255) NOT NULL,
-                            customer TEXT,
+      "Create TABLE order_items (
+                            id SERIAL PRIMARY KEY,
+                            order_id INTEGER NOT NULL REFERENCES orders(id),
+                            pizza_id INTEGER NOT NULL REFERENCES pizzas(id),
                             extra_ingredients TEXT[],
                             glutenfri BOOLEAN NOT NULL DEFAULT FALSE,
-                            familjepizza BOOLEAN NOT NULL DEFAULT FALSE,
-                            status TEXT NOT NULL)",
+                            familjepizza BOOLEAN NOT NULL DEFAULT FALSE)",
       [],
       pool: DBConnection.ConnectionPool
     )

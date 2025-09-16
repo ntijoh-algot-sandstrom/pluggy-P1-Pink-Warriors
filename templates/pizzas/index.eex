@@ -11,7 +11,7 @@
         >Admin</p>
     <% end %>
 
-    <a href="/">
+    <a href="/cart">
         <img src="/img/tonys-pizza-basket.svg" alt="Basket">
     </a>
 
@@ -37,7 +37,7 @@
 
                 <div id = "pizza_button_container">
                 <a href="/edit/<%=id%>"> <button id = "adjust_button">Anpassa</button> </a>
-                <form action="/buy" method="post">
+                <form action="/cart/<%= id %>/add" method="post">
                     <input type="hidden" name="pizza_id" value="<%= id %>">
                     <a href="/"> <button id = "buy_button">Köp</button> </a>
                 </form>

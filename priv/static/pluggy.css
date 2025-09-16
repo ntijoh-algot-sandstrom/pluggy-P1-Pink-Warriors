@@ -67,7 +67,7 @@ body {
 .button-2 {
   background-color: #d65858;
   border: none;
-  color: rgb(255, 255, 255);
+  color: rgb(225, 225, 225);
   padding: 8px 12px;
   text-align: center;
   text-decoration: none;
@@ -75,13 +75,13 @@ body {
   font-size: 16px;
   margin: 1px 55px 8px;
   cursor: pointer;
-	background-color: rgb(255, 255, 255);
+	background-color: rgb(228, 78, 78);
 	margin: 2rem;
 	font-family: Roboto;
 }
 
 #button_2{
-  background-color: #d65858;
+  background-color: #e03333;
 }
 
 /*/ Edit page /*/
@@ -395,6 +395,84 @@ a img{
   border-radius: 0px 0px 8px 8px;
 }
 
+.error{
+  color: rgb(240, 91, 91);
+  font-weight: bold;
+}
+
 /*/ Orders /*/
 
 /*/ /*/
+
+/*/ Cart page/*/
+
+.cart-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background: #f9fafb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #333;
+}
+
+.cart-card-container {
+  flex: 2;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.cart-card-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #222;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.cart-item {
+  margin-bottom: 1.2rem;
+  border: 1px solid #eee;
+  border-radius: 0.8rem;
+  padding: 1rem 1.5rem;
+  background: #fafafa;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cart-item:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+.cart-item h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+  color: #111;
+}
+
+.cart-item p {
+  margin: 0.2rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.cart-form-container {
+  flex: 1;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.cart-form-container p {
+  font-size: 1rem;
+  color: #444;
+}
+
+.cart-item + .cart-item {
+  margin-top: 1rem;
+}

@@ -1,8 +1,13 @@
 <section id="log_in_section">
 
     <form id ="log_in_form" action="/users/login" method="post">
-	    <input type="text" name="username" id="username" placeholder="Username"/>
+        <input type="text" name="username" id="username" placeholder="Username"/>
 	    <input type="password" name="password" id="password" placeholder="Password"/>
+
+        <%= if :error do %>
+            <div class="error"><%= error %></div>
+        <% end %>
+
 	    <button class="log_in_button" type="submit">Log In</button>
     </form>
 
