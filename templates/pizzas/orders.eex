@@ -1,3 +1,17 @@
+<nav class = "nav_bar">
+    <a class = "nav_button" href="/orders">
+        Beställningar
+    </a>
+
+    <a href="/">
+        <img src="/img/tonys-pizza-basket.svg" alt="Basket">
+    </a>
+
+    <a class = "nav_button" href="/users/login">
+        Logga in
+    </a>
+</nav>
+
 <div class="grid-container">
     <div class="cooking">
         <div class="row">
@@ -13,7 +27,7 @@
                             <%= if order.familjepizza do %>
                                 <p>Familjepizza</p>
                             <% end %>
-                            <p>Ingridienser: </br>
+                            <p><b>Ingridienser: </b></br>
                                 <%= for ingredient <- order.extra_ingredients do %>
                                     <%= ingredient %> </br>
                                 <% end %>
@@ -36,17 +50,17 @@
                 <%= if order.status == "färdiglagad" do %>
                     <div class="card-container">
                         <div class="card-content">
-                            <h4><b>Namn: <%= order.customer %></b></h4>
-                            <h4><b>Pizza: <%= order.pizza_name %></b></h4>
+                            <p><b>Namn: </b><%= order.customer %></p>
+                            <p><b>Pizza: </b><%= order.pizza_name %></p>
                             <%= if order.glutenfri do %>
                                 <p>Glutenfri</p>
                             <% end %>
                             <%= if order.familjepizza do %>
                                 <p>Familjepizza</p>
                             <% end %>
-                            <p>Ingridienser: </br>
-                                <%= for ingredient <- order.extra_ingredients || [] do %>
-                                    <%= ingredient %> </br>
+                            <p><b>Ingridienser: </b></br>
+                                <%= for ingredient <- order.extra_ingredients do %>
+                                        <%= ingredient %> </br>
                                 <% end %>
                             </p>
                         </div>
