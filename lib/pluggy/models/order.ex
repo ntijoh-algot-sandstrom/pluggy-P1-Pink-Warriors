@@ -1,4 +1,5 @@
 defmodule Pluggy.Order do
+
   defstruct(id: nil, customer: "", pizza_name: "", extra_ingredients: "", glutenfri: false, familjepizza: true, status: "")
 
   alias Pluggy.Order
@@ -23,15 +24,27 @@ defmodule Pluggy.Order do
                                             [name, nil, ingredients, !!gluten, !!familje, "varukorgen"])
   end
 
-  def update(id, params) do
-    status = params["status"]
-    id = String.to_integer(id)
+  def buy(name, ingredients) do
+    Postgrex.query!(DB, "INSERT INTO orders (pizza_name,
+                                            customer,
+                                            extra_ingredients,
+                                            glutenfri,
+                                            familjepizza,
+                                            status)
+                                            VALUES ($1, $2, $3, $4, $5, $6)",
+                                            [name, nil, ingredients, false, false, "tillagas"])
+  end
 
-    Postgrex.query!(
-      DB,
-      "UPDATE orders SET status = $1 WHERE id = $2",
-      [status, id]
-    )
+
+  def update(id, params) do
+      status = params["status"]
+      id = String.to_integer(id)
+
+      Postgrex.query!(
+        DB,
+        "UPDATE orders SET status = $1 WHERE id = $2",
+        [status, id]
+      )
   end
 
   def delete(id) do
@@ -49,4 +62,25 @@ defmodule Pluggy.Order do
       status: status}
     end
   end
+
+  # def to_struct_list(rows) do
+  #   for [id, pizza_name, customer, extra_ingredients, glutenfri, familjepizza, status] <- rows do
+  #     %Order{
+  #       id: id,
+  #       customer: customer,
+  #       pizza_name: pizza_name,
+  #       extra_ingredients:
+  #       case extra_ingredients do
+  #         nil -> []
+  #         "" -> []
+  #         s when is_binary(s) -> String.split(s, ",", trim: true)
+  #         list when is_list(list) -> list
+  #       end,
+  #       glutenfri: glutenfri,
+  #       familjepizza: familjepizza,
+  #       status: status
+  #     }
+  #   end
+  # end
+
 end

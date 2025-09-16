@@ -3,6 +3,7 @@
 
   alias Pluggy.Order
   alias Pluggy.Pizza
+  alias Pluggy.User
   import Pluggy.Template, only: [render: 2]
   import Plug.Conn, only: [send_resp: 3]
 
@@ -17,14 +18,30 @@
     redirect(conn, "/")
   end
 
+  def buy(conn, params) do
+    id = params["pizza_id"]
+    pizza = Pizza.get(id)
+    Order.buy(pizza.name, pizza.ingredients)
+    redirect(conn, "/")
+  end
+
   def remove(conn, id) do
-    Order.delete(id)
-    redirect(conn, "/orders")
+    case User.is_admin?(conn) do
+      true ->
+        Order.delete(id)
+        redirect(conn, "/orders")
+
+      false -> redirect(conn, "/orders")
+    end
   end
 
   def update(conn, id, params) do
-    Order.update(id, params)
-    redirect(conn, "/orders")
+    case User.is_admin?(conn) do
+      true -> Order.update(id, params)
+              redirect(conn, "/orders")
+              
+      false -> redirect(conn, "/orders")
+    end
   end
 
   # def to_i(list, acc \\ [])

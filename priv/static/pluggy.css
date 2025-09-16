@@ -67,7 +67,7 @@ body {
 .button-2 {
   background-color: #d65858;
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 8px 12px;
   text-align: center;
   text-decoration: none;
@@ -78,6 +78,10 @@ body {
 	background-color: rgb(255, 255, 255);
 	margin: 2rem;
 	font-family: Roboto;
+}
+
+#button_2{
+  background-color: #d65858;
 }
 
 /*/ Edit page /*/
@@ -304,6 +308,11 @@ a img{
   box-shadow: none;
   border: none;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#back_button_order{
+  margin-left: 47.7%;
+  margin-top: 2%;
 }
 
 /*/ Login Page /*/
