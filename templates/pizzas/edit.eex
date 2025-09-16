@@ -46,7 +46,7 @@
 
                 <p><b>Familjepizza:</b></p>
                 <label for=""></label>
-                <input type="checkbox", name="familjepizza", value="true">
+                <input id="familje-pizza" type="checkbox", name="familjepizza", value="true">
                      <span class="dot"></span>
 
             </div>
