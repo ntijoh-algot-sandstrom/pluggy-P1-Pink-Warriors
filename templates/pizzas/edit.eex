@@ -33,22 +33,35 @@
     <div id="edit_main">
         <img src="/img/<%= pizza.name |> String.downcase() |> String.replace(" ", "-") %>.svg" alt="Pizza">
         <div id="text_div">
-            <h1><%= pizza.name %></h1>
+            <p><b><%= pizza.name %></b></p>
         </div>
     </div>
 
     <section id="edit_section">
         <form action="/orders" method="POST">
+
             <div id="gluten-familj">
+
+                <p><b>Gluten-fri:</b></p>
+                <label for=""></label>
                 <input type="checkbox", name="glutenfri", value="true">
-                <label for="">Glutenfri</label>
-                <input type="checkbox", name="familjepizza", value="true">
-                <label for="">Familjepizza</label>
+                     <span class="dot"></span>
+                     
             </div>
 
+
+            <div id="gluten-familj"> 
+
+                <p><b>Familjepizza:</b></p>
+                <label for=""></label>
+                <input id="familje-pizza" type="checkbox", name="familjepizza", value="true">
+                     <span class="dot"></span>
+
+            </div>
+
+            <label for=""><b>Ingredienser:</h3></b></label>
             <div class="inputs">
                 <input type="hidden" name="pizza_id" value=<%= pizza.id %>>
-                <label for="">Ingredienser</label>
                 <%= for i <- pizza.ingredients do %>
                     <label class="custom-circle">
                         <input type="checkbox" name="ingredient[]" value="<%=i%>" checked>
@@ -58,8 +71,8 @@
                 <% end %>
             </div>
 
+            <label for=""><b><h3>Extra:</h3></b></label>
             <div class="inputs">
-                <label for="">Extra</label>
                 <%= for i <- remaining_ingredients do %>
                     <label class="custom-circle">
                         <input type="checkbox" name="ingredient[]" value="<%=i%>">
@@ -69,7 +82,9 @@
                 <% end %>
             </div>
 
+            <div id="submit">
             <button type="submit">Lägg i varukorgen</button>
+            </div>
         </form>
     </section>
 </body>
