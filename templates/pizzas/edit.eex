@@ -42,15 +42,15 @@
 
             <div id="gluten-familj">
 
-                <p><b>Gluten-fri:</b></p>
+                <p><b>Glutenfri:</b></p>
                 <label for=""></label>
                 <input type="checkbox", name="glutenfri", value="true">
                      <span class="dot"></span>
-                     
+
             </div>
 
 
-            <div id="gluten-familj"> 
+            <div id="gluten-familj">
 
                 <p><b>Familjepizza:</b></p>
                 <label for=""></label>
