@@ -30,25 +30,15 @@
     </div>
 
     <section id="edit_section">
-        <form action="/orders" method="POST">
-
+        <form action="/orders/<%= pizza.id %>" method="POST">
             <div id="gluten-familj">
 
                 <p><b>Gluten-fri:</b></p>
                 <label for=""></label>
                 <input type="checkbox", name="glutenfri", value="true">
-                     <span class="dot"></span>
-                     
-            </div>
-
-
-            <div id="gluten-familj"> 
-
-                <p><b>Familjepizza:</b></p>
-                <label for=""></label>
-                <input id="familje-pizza" type="checkbox", name="familjepizza", value="true">
-                     <span class="dot"></span>
-
+                <label for="">Glutenfri</label>
+                <input type="checkbox", name="familjepizza", value="true">
+                <label for="">Familjepizza</label>
             </div>
 
             <label for=""><b>Ingredienser:</h3></b></label>

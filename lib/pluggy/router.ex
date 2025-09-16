@@ -3,9 +3,9 @@ defmodule Pluggy.Router do
   use Plug.Debugger
 
   alias Pluggy.OrderController
-  alias Pluggy.FruitController
   alias Pluggy.UserController
   alias Pluggy.PizzaController
+  alias Pluggy.CartController
 
   plug(Plug.Static, at: "/", from: :pluggy)
   plug(:put_secret_key_base)
@@ -18,27 +18,6 @@ defmodule Pluggy.Router do
     log: :debug
   )
 
-  # def call(conn, _config) do
-  #   case get_session(conn, :session_id) do
-  #     nil ->
-  #       session_id = unique_session_id()
-  #       put_session(conn, :session_id, session_id)
-
-  #     session_id ->
-  #       conn
-  #   end
-  # end
-
-  # defp unique_session_id() do
-  #   :crypto.strong_rand_bytes(16) |> Base.encode16()
-  # end
-
-  # session_id = get_session(conn, :session_id)
-
-  defp unique_session_id() do
-    :crypto.strong_rand_bytes(16) |> Base.encode16()
-  end
-
   plug(:fetch_session)
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
   plug(:match)
@@ -46,32 +25,20 @@ defmodule Pluggy.Router do
 
 
   get("/", do: PizzaController.index(conn))
+
+  get("/cart", do: CartController.index(conn))
+  post("/cart/:id/add", do: CartController.add_to_cart(conn, id))
+  post("sendorder/:id", do: OrderController.order(conn, id, conn.body_params))
+
   get("/edit/:id", do: PizzaController.edit(conn, id))
   get("/orders", do: OrderController.orders(conn))
   get("/users/login", do: UserController.index(conn))
-  post("/buy", do: OrderController.buy(conn, conn.body_params))
 
   post("/users/login", do: UserController.login(conn, conn.body_params))
   post("orders/:id/remove", do: OrderController.remove(conn, id))
   post("orders/:id/edit", do: OrderController.update(conn, id, conn.body_params))
-  post("/orders", do: OrderController.create(conn, conn.body_params))
+  post("/orders/:id", do: CartController.add_to_cart(conn, id, conn.body_params))
 
-
-
-  #______________________________________________
-  get("/fruits", do: FruitController.index(conn))
-  get("/fruits/new", do: FruitController.new(conn))
-  get("/fruits/:id", do: FruitController.show(conn, id))
-  get("/fruits/:id/edit", do: FruitController.edit(conn, id))
-
-
-  post("/fruits", do: FruitController.create(conn, conn.body_params))
-
-  # should be put /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post("/fruits/:id/edit", do: FruitController.update(conn, id, conn.body_params))
-
-  # should be delete /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post("/fruits/:id/destroy", do: FruitController.destroy(conn, id))
 
   # post("/users/login", do: UserController.login(conn, conn.body_params))
   # post("/users/logout", do: UserController.logout(conn))

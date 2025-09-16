@@ -19,24 +19,26 @@
                 <%= if order.status == "tillagas" do %>
                     <div class="card-container">
                         <div class="card-content">
-                            <h4><b>Namn: <%= order.customer %></b></h4>
-                            <h4><b>Pizza: <%= order.pizza_name %></b></h4>
-                            <%= if order.glutenfri do %>
-                                <p>Glutenfri</p>
-                            <% end %>
-                            <%= if order.familjepizza do %>
-                                <p>Familjepizza</p>
-                            <% end %>
-                            <p><b>Ingridienser: </b></br>
-                                <%= for ingredient <- order.extra_ingredients do %>
-                                    <%= ingredient %> </br>
+                        <h4><b>Namn: <%= order.customer %></b></h4>
+                            <%= for order_item <- Pluggy.OrderItem.get_order_items(order.id) do %>
+                                <h4><b>Pizza: <%= Pluggy.Pizza.get_pizza_name(order_item.pizza_id) %></b></h4>
+                                <%= if order_item.glutenfri do %>
+                                    <p>Glutenfri</p>
                                 <% end %>
-                            </p>
-                        </div>
-                        <div class=button-container">
-                            <form action="/orders/<%= order.id %>/edit" method="post">
-                                <button type="submit" name="status" value="färdiglagad" class="button">Tillagad</button>
-                            </form>
+                                <%= if order_item.familjepizza do %>
+                                    <p>Familjepizza</p>
+                                <% end %>
+                                    <%= for ingredient <- order_item.extra_ingredients || [] do %>
+                                        <p>Ingridienser: </br>
+                                        <%= ingredient %> </br>
+                                    <% end %>
+                                </p>
+                            <% end %>
+                            <div class=button-container">
+                                    <form action="/orders/<%= order.id %>/edit" method="post">
+                                        <button type="submit" name="status" value="färdiglagad" class="button">Tillagad</button>
+                                    </form>
+                            </div>
                         </div>
                     </div>
                 <% end %>
@@ -50,24 +52,26 @@
                 <%= if order.status == "färdiglagad" do %>
                     <div class="card-container">
                         <div class="card-content">
-                            <p><b>Namn: </b><%= order.customer %></p>
-                            <p><b>Pizza: </b><%= order.pizza_name %></p>
-                            <%= if order.glutenfri do %>
-                                <p>Glutenfri</p>
-                            <% end %>
-                            <%= if order.familjepizza do %>
-                                <p>Familjepizza</p>
-                            <% end %>
-                            <p><b>Ingridienser: </b></br>
-                                <%= for ingredient <- order.extra_ingredients do %>
-                                        <%= ingredient %> </br>
+                        <h4><b>Namn: <%= order.customer %></b></h4>
+                            <%= for order_item <- Pluggy.OrderItem.get_order_items(order.id) do %>
+                                <h4><b>Pizza: <%= Pluggy.Pizza.get_pizza_name(order_item.pizza_id) %></b></h4>
+                                <%= if order_item.glutenfri do %>
+                                    <p>Glutenfri</p>
                                 <% end %>
-                            </p>
-                        </div>
-                        <div class=button-container">
-                            <form action="/orders/<%= order.id %>/remove" method="post">
-                                <button type="submit" id = "button_2" class="button-2">Hämtad</button>
-                            </form>
+                                <%= if order_item.familjepizza do %>
+                                    <p>Familjepizza</p>
+                                <% end %>
+                                    <%= for ingredient <- order_item.extra_ingredients || [] do %>
+                                        <p>Ingridienser: </br>
+                                        <%= ingredient %> </br>
+                                    <% end %>
+                                </p>
+                            <% end %>
+                            <div class=button-container">
+                                    <form action="/orders/<%= order.id %>/edit" method="post">
+                                        <button type="submit" name="status" value="avklarad" class="button-2">Tillagad</button>
+                                    </form>
+                            </div>
                         </div>
                     </div>
                 <% end %>

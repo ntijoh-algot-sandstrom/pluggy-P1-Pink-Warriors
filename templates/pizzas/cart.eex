@@ -1,0 +1,31 @@
+<div class="cart-container">
+    <div class="cart-card-container">
+        <h2><b>Kundvagn</b></h2>
+        <%= for order_item <- orders do %>
+                    <div class="cart-item">
+                        <div class="cart-item-content">
+                            <h3><b><%= Pluggy.Pizza.get_pizza_name(order_item.pizza_id) %></b></h3>
+                            <p><b><%= Pluggy.Pizza.get_ingredients(order_item.pizza_id) |> Enum.join(", ") %></b></p>
+                            <%= if order_item.glutenfri do %>
+                                <p>Glutenfri</p>
+                            <% end %>
+                            <%= if order_item.familjepizza do %>
+                                <p>Familjepizza</p>
+                            <% end %>
+                            <%= if order_item.extra_ingredients != nil do %>
+                                <p>Extra ingridienser: <%= order_item.extra_ingredients |> Enum.join(", ") %></p>
+                            <% end %>
+                        </div>
+                    </div>
+        <% end %>
+    </div>
+    <div class="cart-form-container">
+        <div class="cart-form">
+            <h3><b>Namn på beställningen</b></h3>
+            <form action="/sendorder/<%= List.first(orders).order_id %>" method="post">
+	            <input type="text" name="customer" />
+	            <button type=submit class="order-button">Beställ</button>
+            </form>
+        </div>
+    </div>
+</div>
