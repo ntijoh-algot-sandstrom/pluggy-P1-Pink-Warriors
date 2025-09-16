@@ -28,8 +28,8 @@
                                 <%= if order_item.familjepizza do %>
                                     <p>Familjepizza</p>
                                 <% end %>
+                                    <p>Ingridienser: </br>
                                     <%= for ingredient <- order_item.extra_ingredients || [] do %>
-                                        <p>Ingridienser: </br>
                                         <%= ingredient %> </br>
                                     <% end %>
                                 </p>
