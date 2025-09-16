@@ -1,13 +1,15 @@
 defmodule Pluggy.UserController do
 
   alias Pluggy.User
-  import Pluggy.Template, only: [render: 1]
+  import Pluggy.Template, only: [render: 2]
   import Plug.Conn, only: [send_resp: 3]
 
   def index(conn) do
 
-    send_resp(conn, 200, render("pizzas/login"))
+    error = Plug.Conn.get_session(conn, :error)
+    conn = Plug.Conn.delete_session(conn, :error)
 
+    send_resp(conn, 200, render("pizzas/login", error: error))
   end
 
   def login(conn, params) do
@@ -29,15 +31,18 @@ defmodule Pluggy.UserController do
           conn
           |> Plug.Conn.put_session( :user_id, id)
           |> Plug.Conn.put_session( :user_role, role)
-          |> redirect("/") #skicka vidare modifierad conn
+          |> redirect("/")
         else
           conn
           |> Plug.Conn.clear_session()
+          |> Plug.Conn.put_session(:error, "Wrong password or username")
           |> redirect("/users/login")
         end
 
-      _ -> conn
+      _ ->
+          conn
           |> Plug.Conn.clear_session()
+          |> Plug.Conn.put_session(:error, "Wrong password or username")
           |> redirect("/users/login")
     end
 
