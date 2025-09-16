@@ -20,7 +20,7 @@ defmodule Pluggy.Order do
                                             familjepizza,
                                             status)
                                             VALUES ($1, $2, $3, $4, $5, $6)",
-                                            [name, sesseion(:user), ingredients, !!gluten, !!familje, "varukorgen"])
+                                            [name, nil, ingredients, !!gluten, !!familje, "varukorgen"])
   end
 
   def update(id, params) do
