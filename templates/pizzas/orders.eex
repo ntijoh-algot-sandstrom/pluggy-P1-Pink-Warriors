@@ -27,7 +27,7 @@
                 <%= if order.status == "tillagas" do %>
                     <div class="card-container">
                         <div class="card-content">
-                        <h4><b>Namn: <%= order.customer %></b></h4>
+                            <h4><b>Namn: <%= order.customer %></b></h4>
                             <%= for order_item <- Pluggy.OrderItem.get_order_items(order.id) do %>
                                 <h4><b>Pizza: <%= Pluggy.Pizza.get_pizza_name(order_item.pizza_id) %></b></h4>
                                 <%= if order_item.glutenfri do %>
@@ -40,6 +40,7 @@
                                     <%= for ingredient <- order_item.extra_ingredients || [] do %>
                                         <%= ingredient %> </br>
                                     <% end %>
+                                    ----------------------
                                 </p>
                             <% end %>
                             <div class=button-container">
@@ -73,6 +74,7 @@
                                         <p>Ingridienser: </br>
                                         <%= ingredient %> </br>
                                     <% end %>
+                                    ----------------------
                                 </p>
                             <% end %>
                             <div class=button-container">
