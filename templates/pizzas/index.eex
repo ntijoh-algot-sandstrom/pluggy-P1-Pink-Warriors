@@ -3,6 +3,14 @@
         Beställningar
     </a>
 
+    <%= if admin do %>
+        <p class="nav_button" style="
+        background-color: rgb(92, 196, 92);
+        border-style: solid;"
+        border-width: 2px;"
+        >Admin</p>
+    <% end %>
+
     <a href="/">
         <img src="/img/tonys-pizza-basket.svg" alt="Basket">
     </a>
@@ -13,13 +21,10 @@
 </nav>
 
 <header id = "image_header">
-
     <img src="img/tonys-pizza-logo.svg" alt="Tonys pizza logo">
-
 </header>
 
 <main id = "pizza_container">
-
     <%= for {{id, pizza}, ingredienser} <- pizzas_grouped do %>
         <div class="pizza_card">
             <div id = "pizza_card_text_div">
@@ -42,5 +47,4 @@
             <img src="/img/<%= pizza |> String.downcase() |> String.replace(" ", "-") %>.svg">
         </div>
     <% end %>
-
 </main>

@@ -3,21 +3,20 @@ defmodule Pluggy.PizzaController do
 
   alias Pluggy.Pizza
   alias Pluggy.Ingredients
+  alias Pluggy.User
 
   import Pluggy.Template, only: [render: 2]
   import Plug.Conn, only: [send_resp: 3, get_session: 2, put_session: 3]
 
   def index(conn) do
-
-    send_resp(conn, 200, render("pizzas/index", pizzas_grouped: Pizza.pizza_grouped()))
-
+    send_resp(conn, 200, render("pizzas/index", pizzas_grouped: Pizza.pizza_grouped(), admin: User.is_admin?(conn)))
   end
 
   def edit(conn, id) do
     pizza = Pizza.get(id) #with ingredients
     remaining = Ingredients.remaining(pizza.ingredients) #remaining ingredients
 
-    send_resp(conn, 200, render("pizzas/edit", pizza: pizza, remaining_ingredients: remaining))
+    send_resp(conn, 200, render("pizzas/edit", pizza: pizza, remaining_ingredients: remaining, admin: User.is_admin?(conn)))
   end
 
   def add_order(conn, order_id) do

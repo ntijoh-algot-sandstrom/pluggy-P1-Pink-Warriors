@@ -3,7 +3,6 @@ defmodule Pluggy.User do
   defstruct(id: nil, username: "")
 
   def is_user?(username) do
-
     result = Postgrex.query!(DB, "SELECT 1 FROM users WHERE username = $1 LIMIT 1", [username])
 
     case result.num_rows do
@@ -13,10 +12,8 @@ defmodule Pluggy.User do
   end
 
   def login_user(username) do
-
     result = Postgrex.query!(DB, "SELECT id, role, password_hash FROM users WHERE username = $1 LIMIT 1", [username])
     result
-
   end
 
 

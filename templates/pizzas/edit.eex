@@ -13,6 +13,14 @@
             Beställningar
         </a>
 
+        <%= if admin do %>
+            <p class="nav_button" style="
+            background-color: rgb(92, 196, 92);
+            border-style: solid;"
+            border-width: 2px;"
+            >Admin</p>
+        <% end %>
+
         <a href="/">
             <img src="/img/tonys-pizza-basket.svg" alt="Basket">
         </a>

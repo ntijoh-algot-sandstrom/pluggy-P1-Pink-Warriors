@@ -8,7 +8,7 @@
   import Plug.Conn, only: [send_resp: 3]
 
   def orders(conn) do
-    send_resp(conn, 200, render("pizzas/orders", orders: Order.get_all_orders()))
+    send_resp(conn, 200, render("pizzas/orders", orders: Order.get_all_orders(), admin: User.is_admin?(conn)))
   end
 
   def create(conn, params) do
@@ -39,7 +39,7 @@
     case User.is_admin?(conn) do
       true -> Order.update(id, params)
               redirect(conn, "/orders")
-              
+
       false -> redirect(conn, "/orders")
     end
   end
