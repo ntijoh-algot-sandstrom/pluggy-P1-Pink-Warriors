@@ -1,18 +1,15 @@
-
-<nav id = "nav_bar">
-
+<nav class = "nav_bar">
     <a class = "nav_button" href="/orders">
         Beställningar
     </a>
 
     <a href="/">
-        <img src="img/tonys-pizza-basket.svg" alt="Basket">
+        <img src="/img/tonys-pizza-basket.svg" alt="Basket">
     </a>
 
     <a class = "nav_button" href="/users/login">
         Logga in
     </a>
-
 </nav>
 
 <header id = "image_header">
@@ -35,7 +32,10 @@
 
                 <div id = "pizza_button_container">
                 <a href="/edit/<%=id%>"> <button id = "adjust_button">Anpassa</button> </a>
-                <a href="/"> <button id = "buy_button">Köp</button> </a>
+                <form action="/buy" method="post">
+                    <input type="hidden" name="pizza_id" value="<%= id %>">
+                    <a href="/"> <button id = "buy_button">Köp</button> </a>
+                </form>
                 </div>
 
             </div>

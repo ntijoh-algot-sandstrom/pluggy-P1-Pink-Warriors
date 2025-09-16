@@ -3,6 +3,7 @@
 
   alias Pluggy.Order
   alias Pluggy.Pizza
+  alias Pluggy.User
   import Pluggy.Template, only: [render: 2]
   import Plug.Conn, only: [send_resp: 3]
 
@@ -12,28 +13,42 @@
 
   def create(conn, params) do
     pizza = Pizza.get(params["pizza_id"])
-    IO.inspect(params["ingredient"])
+    Order.create(params, pizza.name)
 
-    Order.create(params["ingredient"], pizza.name)
+    redirect(conn, "/")
+  end
 
-    redirect(conn, "/orders")
+  def buy(conn, params) do
+    id = params["pizza_id"]
+    pizza = Pizza.get(id)
+    Order.buy(pizza.name, pizza.ingredients)
+    redirect(conn, "/")
   end
 
   def remove(conn, id) do
-    Order.delete(id)
-    redirect(conn, "/orders")
+    case User.is_admin?(conn) do
+      true ->
+        Order.delete(id)
+        redirect(conn, "/orders")
+
+      false -> redirect(conn, "/orders")
+    end
   end
 
   def update(conn, id, params) do
-    Order.update(id, params)
-    redirect(conn, "/orders")
+    case User.is_admin?(conn) do
+      true -> Order.update(id, params)
+              redirect(conn, "/orders")
+              
+      false -> redirect(conn, "/orders")
+    end
   end
 
-  def to_i(list, acc \\ [])
-  def to_i([], acc), do: List.flatten(acc)
-  def to_i([head | tail], acc) do
-    to_i(tail, [Postgrex.query!(DB, "SELECT id FROM ingredients WHERE name = '#{head}'").rows | acc])
-  end
+  # def to_i(list, acc \\ [])
+  # def to_i([], acc), do: List.flatten(acc)
+  # def to_i([head | tail], acc) do
+  #   to_i(tail, [Postgrex.query!(DB, "SELECT id FROM ingredients WHERE name = '#{head}'").rows | acc])
+  # end
 
   defp redirect(conn, url) do
     Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
